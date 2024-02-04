@@ -1,0 +1,340 @@
+<!-- <!DOCTYPE html> -->
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>NBA Players</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+
+<body>
+    
+    <!-- 主model -->
+    <div class="container">
+        <div class="row">
+            <div class="col md-12">
+                <h2>Player Stat 
+                    
+                    <!-- <a href="#" class="bind_hover_card" data-toggle="popover" data-placement="bottom" data-trigger="hover"> <title>NBA Players</title> </a>   -->
+
+                    <a href="/" class="btn btn-danger btn-xs pull-right">Back</a>
+
+
+                    <!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">开始演示模态框</button> -->
+                </h2>
+
+
+                <table class="table table-striped">
+                    <tr>
+                        
+                        <th>Player_ID</th>
+                        <th>Player_Name</th>
+                        <th>Points</th>
+                        <th>FG</th>
+                        <th>ThreePt</th>
+                        <th>REB</th>
+                        <th>AST</th>
+                        <th>STL</th>
+                        <th>BLK</th>
+                    </tr>
+
+                    {% for row in player %}
+                    <tr>
+                        <td>{{row.0}}</td>
+                        <td>{{row.1}}</td>
+                        <td>{{row.2}}</td>
+                        <td>{{row.3}}</td>
+                        <td>{{row.4}}</td>
+                        <td>{{row.5}}</td>
+                        <td>{{row.6}}</td>
+                        <td>{{row.7}}</td>
+                        <td>{{row.8}}</td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+        <div class="modal fade" id="search"  role="dialog">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Enter Name</h4>
+                </div>
+
+                <div class="modal-body">
+        
+                    <form action="/search" method="POST">
+                        <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" class="form-control" name="name" value="Name">
+        
+        
+                        </div>
+        
+
+                        <div class="form-group">
+        
+        
+                        <button class="btn btn-primary" type="submit">Enter</button>
+        
+                        </div>
+                    </form>
+
+                </div>
+        
+        
+                <div class="modal-footer">
+        
+        
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+        
+                </div>
+        
+        
+            </div>
+        
+        
+            </div>
+
+        </div>
+
+        <div class="modal fade" id="modaledit"  role="dialog">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Please Update Data</h4>
+                </div>
+
+                <div class="modal-body">
+        
+                    <form action="/update" method="POST">
+        
+                        <div class="form-group">
+        
+                        <label>Player_ID:</label>
+                        <input type="text" class="form-control" name="playerID" value="0">
+        
+                        </div>
+        
+        
+                        <div class="form-group">
+        
+        
+                        <label>Name:</label>
+                        <input type="text" class="form-control" name="name" value="Name">
+        
+        
+                        </div>
+        
+        
+                        <div class="form-group">
+        
+        
+                        <label>Height:</label>
+                        <input type="text" class="form-control" name="height" value="0">
+        
+        
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>Weight:</label>
+                            <input type="text" class="form-control" name="weight" value="0">
+        
+        
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>Age:</label>
+                            <input type="text" class="form-control" name="age" value="0">
+        
+        
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>Country:</label>
+                            <input type="text" class="form-control" name="country" value="country">
+        
+        
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>TeamName:</label>
+                            <input type="text" class="form-control" name="teamName" value="teamName">
+        
+        
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>CollegeName:</label>
+                            <input type="text" class="form-control" name="collegeName" value="">
+        
+        
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>Movie_ID:</label>
+                            <input type="text" class="form-control" name="movieID" required="1">
+        
+        
+                        </div>
+
+
+        
+        
+        
+                        <div class="form-group">
+        
+        
+                        <button class="btn btn-primary" type="submit">Update Data</button>
+        
+                        </div>
+                    </form>
+
+                </div>
+        
+        
+                <div class="modal-footer">
+        
+        
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+        
+                </div>
+        
+        
+            </div>
+        
+        
+            </div>
+
+        </div>
+
+        <div class="modal fade" id="mymodal" role="dialog">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Please Insert Data</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="/insert" method="POST">
+        
+                        <div class="form-group">
+        
+                        <label>Player_ID:</label>
+                        <input type="text" class="form-control" name="playerID" required="1">
+        
+                        </div>
+        
+        
+                        <div class="form-group">
+        
+        
+                        <label>Name:</label>
+                        <input type="text" class="form-control" name="name" required="1">
+        
+        
+                        </div>
+        
+        
+                        <div class="form-group">
+                            <label>Height:</label>
+                            <input type="text" class="form-control" name="height" required="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Weight:</label>
+                            <input type="text" class="form-control" name="weight" required="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Age:</label>
+                            <input type="text" class="form-control" name="age" required="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Country:</label>
+                            <input type="text" class="form-control" name="country" required="1">
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>TeamName:</label>
+                            <input type="text" class="form-control" name="teamName" required="1">
+        
+
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>CollegeName:</label>
+                            <input type="text" class="form-control" name="collegeName" required="1">
+        
+        
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>Movie_ID:</label>
+                            <input type="text" class="form-control" name="movieID" required="1">
+        
+        
+                        </div>
+
+
+        
+        
+        
+                        <div class="form-group">
+        
+        
+                        <button class="btn btn-primary" type="submit">Insert Data</button>
+        
+        
+                        </div>
+        
+        
+                    </form>
+
+                </div>
+        
+        
+                <div class="modal-footer">
+        
+        
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+        
+                </div>
+        
+        
+            </div>
+        
+        
+            </div>
+        
+        
+        </div>
+    </div>
+</body>

@@ -1,0 +1,8 @@
+runtime: python37
+
+env_variables:
+  CLOUD_SQL_USERNAME: test-user
+  # CLOUD_SQL_USERNAME: root
+  CLOUD_SQL_PASSWORD: foureleven
+  CLOUD_SQL_CONNECTION_NAME: cs411-project-366021:us-central1:myinstance
+  CLOUD_SQL_DATABASE_NAME: project

@@ -1,0 +1,383 @@
+<!-- <!DOCTYPE html> -->
+<html>
+<head>
+	<meta charset="utf-8"> 
+	<title>NBA Players</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+
+<body>
+    
+    <!-- 主model -->
+    <div class="container">
+        <div class="row">
+            <div class="col md-12">
+                <h2>Player List 
+                    <button type= "button" class="btn btn-success pull-right" data-toggle="modal" data-target = "#mymodal">
+                        Add Player Data
+                    </button> 
+                    <button type= "button" class="btn btn-success" data-toggle="modal" data-target = "#search">
+                        search player
+                    </button> 
+                    
+
+                    <a href="/advanceSearch1" class="btn btn-info btn-xs" >Advance1</a>
+                    <a href="/advanceSearch2" class="btn btn-info btn-xs" ··>Advance2</a>
+
+                      
+
+                    <a href="/" class="btn btn-danger btn-xs" onclick="return confirm('Go Back?')">Back</a>
+
+                    <div class="dropdown">
+                        <button type="button" class="btn dropdown-toggle" id="dropdownMenu1" data-toggle="dropdown">Rank
+                            <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+                            <li role="presentation">
+                                <a href="/show_s_rank_player" class="btn btn btn-xs">S_Rank</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="/show_a_rank_player" class="btn btn btn·-xs" >A_Rank</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="/show_b_rank_player" class="btn btn btn-xs">B_Rank</a>
+                            </li>
+                            <li role="presentation">
+                                <a href="/show_c_rank_player" class="btn btn btn-xs">C_Rank</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <!-- <button class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">开始演示模态框</button> -->
+                </h2>
+
+
+                <table class="table table-striped">
+                    <tr>
+                        <th>Player_ID</th>
+                        <th>Name</th>
+                        <th>Height</th>
+                        <th>Weight</th>
+                        <th>Age</th>
+                        <th>Country</th>
+                        <th>TeamName</th>
+                        <th>CollegeName</th>
+                        <th>Movie_ID</th>
+                        <th>Action</th>
+                    </tr>
+
+                    {% for row in player %}
+                    <tr>
+                        <td>{{row.0}}</td>
+                        <td>
+                            <a href="/open/{{row.0}}" class="bind_hover_card" data-toggle="popover" data-placement="bottom" data-trigger="hover">{{row.1}}</a>
+                        </td>
+                        <td>{{row.2}}</td>
+                        <td>{{row.3}}</td>
+                        <td>{{row.4}}</td>
+                        <td>{{row.5}}</td>
+                        <td>{{row.6}}</td>
+                        <td>{{row.7}}</td>
+                        <td>{{row.8}}</td>
+                        <td>
+                            <!-- <a href="/update/{{row.0}}" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit">Edit</a> -->
+                            <a href="" class="btn btn-warning btn-xs" data-toggle="modal" data-target="#modaledit">Edit</a>
+
+                            <a href="/delete/{{row.0}}" class="btn btn-danger btn-xs" onclick="return confirm('Are you sure to delete?')">Delete</a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            </div>
+        </div>
+
+        <div class="modal fade" id="search"  role="dialog">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Enter Name</h4>
+                </div>
+
+                <div class="modal-body">
+        
+                    <form action="/search" method="POST">
+                        <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" class="form-control" name="name" value="Name">
+        
+        
+                        </div>
+        
+
+                        <div class="form-group">
+        
+        
+                        <button class="btn btn-primary" type="submit">Enter</button>
+        
+                        </div>
+                    </form>
+
+                </div>
+        
+        
+                <div class="modal-footer">
+        
+        
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+        
+                </div>
+        
+        
+            </div>
+        
+        
+            </div>
+
+        </div>
+
+        <div class="modal fade" id="modaledit"  role="dialog">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Please Update Data</h4>
+                </div>
+
+                <div class="modal-body">
+                    <form action="/update" method="POST">
+                        <div class="form-group">
+                        <label>Player_ID:</label>
+                        <input type="text" class="form-control" name="playerID" value="0">
+                        </div>
+                        <div class="form-group">
+                        <label>Name:</label>
+                        <input type="text" class="form-control" name="name" value="Name">
+        
+        
+                        </div>
+        
+        
+                        <div class="form-group">
+        
+        
+                        <label>Height:</label>
+                        <input type="text" class="form-control" name="height" value="0">
+        
+        
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>Weight:</label>
+                            <input type="text" class="form-control" name="weight" value="0">
+        
+        
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>Age:</label>
+                            <input type="text" class="form-control" name="age" value="0">
+        
+        
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>Country:</label>
+                            <input type="text" class="form-control" name="country" value="country">
+        
+        
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>TeamName:</label>
+                            <input type="text" class="form-control" name="teamName" value="teamName">
+        
+        
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>CollegeName:</label>
+                            <input type="text" class="form-control" name="collegeName" value="">
+        
+        
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>Movie_ID:</label>
+                            <input type="text" class="form-control" name="movieID" required="1">
+        
+        
+                        </div>
+
+
+        
+        
+        
+                        <div class="form-group">
+        
+        
+                        <button class="btn btn-primary" type="submit">Update Data</button>
+        
+                        </div>
+                    </form>
+
+                </div>
+        
+        
+                <div class="modal-footer">
+        
+        
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+        
+                </div>
+        
+        
+            </div>
+        
+        
+            </div>
+
+        </div>
+
+        <div class="modal fade" id="mymodal" role="dialog">
+            <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">Please Insert Data</h4>
+                </div>
+                <div class="modal-body">
+                    <form action="/insert" method="POST">
+        
+                        <div class="form-group">
+        
+                        <label>Player_ID:</label>
+                        <input type="text" class="form-control" name="playerID" required="1">
+        
+                        </div>
+        
+        
+                        <div class="form-group">
+        
+        
+                        <label>Name:</label>
+                        <input type="text" class="form-control" name="name" required="1">
+        
+        
+                        </div>
+        
+        
+                        <div class="form-group">
+                            <label>Height:</label>
+                            <input type="text" class="form-control" name="height" required="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Weight:</label>
+                            <input type="text" class="form-control" name="weight" required="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Age:</label>
+                            <input type="text" class="form-control" name="age" required="1">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Country:</label>
+                            <input type="text" class="form-control" name="country" required="1">
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>TeamName:</label>
+                            <input type="text" class="form-control" name="teamName" required="1">
+        
+
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>CollegeName:</label>
+                            <input type="text" class="form-control" name="collegeName" required="1">
+        
+        
+                        </div>
+
+                        <div class="form-group">
+        
+        
+                            <label>Movie_ID:</label>
+                            <input type="text" class="form-control" name="movieID" required="1">
+        
+        
+                        </div>
+
+
+        
+        
+        
+                        <div class="form-group">
+        
+        
+                        <button class="btn btn-primary" type="submit">Insert Data</button>
+        
+        
+                        </div>
+        
+        
+                    </form>
+
+                </div>
+        
+        
+                <div class="modal-footer">
+        
+        
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        
+        
+                </div>
+        
+        
+            </div>
+        
+        
+            </div>
+        
+        
+        </div>
+    </div>
+</body>
+
+
+
+</html>
+
+<!-- <div class="input-group">
+    <div class="form-outline">
+      <input type="search" id="form1" class="form-control" />
+      <label class="form-label" for="form1">Search</label>
+    </div>
+    <button type="button" class="btn btn-primary">
+      <i class="fas fa-search"></i>
+    </button>
+  </div> -->
